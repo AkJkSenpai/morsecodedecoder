@@ -7,6 +7,7 @@ test('renders learn react link', () => {
     expect(headerElement).toBeInTheDocument();
 });
 
+// Mocks for decoding morsecodes
 const dummyCodes = [
     {
         code: '*',
@@ -141,8 +142,35 @@ test('decoding morsecode', () => {
     const code = screen.getByTestId('code');
 
     dummyCodes.forEach(element => {
-        fireEvent.change(inputField, { target: { value: element.code} })
+        fireEvent.change(inputField, { target: { value: element.code} });
         fireEvent.click(submitButton);
         expect(code).toHaveTextContent(element.expected);
+    });
+});
+
+// Mocks for input errors
+const dummyInputs = [
+    {
+        code: '*****', // Too long code
+        expected: 'Max input length is 4'
+    },
+    {
+        code: '***s', // Invalid characters
+        expected: 'Input can only contain characters *, -, / and space'
+    }
+]
+
+test('input errors', () => {
+    render(<App />);
+
+    const inputField = screen.getByTestId('inputField');
+
+    dummyInputs.forEach(element => {
+        fireEvent.change(inputField, { target: { value: element.code} });
+        expect(inputField.classList.contains('dcInvalidInput')).toBe(true);
+
+        fireEvent.mouseOver(inputField);
+
+        expect(screen.getByTitle(element.expected)).toBeInTheDocument();
     });
 });
