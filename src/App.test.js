@@ -127,6 +127,10 @@ const dummyCodes = [
         code: '----',
         expected: 'Š'
     },
+    {
+        code: '**** * *-** *-** --- / *-- --- *-* *-** -**',
+        expected: 'HELLO WORLD'
+    }
 ];
 
 test('decoding morsecode', () => {
