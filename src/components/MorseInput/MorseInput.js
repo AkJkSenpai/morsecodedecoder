@@ -9,7 +9,7 @@ const MorseInput = ({onClick, onChange, onKey}) => {
             <h4>Example: **** * *-** *-** --- / *-- --- *-* *-** -** = HELLO WORLD</h4>
             <div>
                 <input className='field' data-testid='inputField' onChange={onChange} />
-                <input className='button' data-testid='submitButton' type={'submit'} onClick={onClick} />
+                <button className='button' data-testid='submitButton' type='submit' onClick={onClick}>Submit</button>
             </div>
         </div>
     );
