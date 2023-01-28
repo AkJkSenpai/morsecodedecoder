@@ -16,6 +16,29 @@ class App extends React.Component {
     } 
 
     handleChange(e) {
+        let length = e.target.value.length;
+        const regex = new RegExp('^[*\-/\\s]+$');
+
+        // Check if input length is invalid
+        if (length > 4 || !regex.test(e.target.value)) {
+            document.querySelector('.field').classList.add('dcInvalidInput');
+
+            if (length > 4) {
+                document.querySelector('.field').setAttribute('title', 'Max input length is 4')
+            } else {
+                document.querySelector('.field').setAttribute('title', 'Input can only contain characters *, -, / and space')
+            }
+        } else {
+            document.querySelector('.field').classList.remove('dcInvalidInput');
+            document.querySelector('.field').removeAttribute('title');
+        }
+
+        // Remove all errors if input is empty
+        if (length === 0) {
+            document.querySelector('.field').classList.remove('dcInvalidInput');
+            document.querySelector('.field').removeAttribute('title');
+        }
+
         this.setState({fieldValue: e.target.value});
     }
 
@@ -37,7 +60,7 @@ class App extends React.Component {
                     decodedCode += 'E';
                 } else if (item.charAt(0) === '/') {
                     decodedCode += ' ';
-                } else {
+                } else if (item.charAt(0) === '-') {
                     decodedCode += 'T';
                 }
             } else if (length === 2) {
@@ -45,13 +68,13 @@ class App extends React.Component {
                 if (item.charAt(0) === '*') {
                     if (item.charAt(1) === '*') {
                         decodedCode += 'I';
-                    } else {
+                    } else if (item.charAt(1) === '-') {
                         decodedCode += 'A';
                     }
                 } else {
                     if (item.charAt(1) === '*') {
                         decodedCode += 'N';
-                    } else {
+                    } else if (item.charAt(1) === '-') {
                         decodedCode += 'M';
                     }
                 }
@@ -61,13 +84,13 @@ class App extends React.Component {
                     if (item.charAt(1) === '*') {
                         if (item.charAt(2) === '*') {
                             decodedCode += 'S';
-                        } else {
+                        } else if (item.charAt(2) === '-') {
                             decodedCode += 'U';
                         }
                     } else {
                         if (item.charAt(2) === '*') {
                             decodedCode += 'R';
-                        } else {
+                        } else if (item.charAt(2) === '-') {
                             decodedCode += 'W';
                         }
                     }
@@ -75,13 +98,13 @@ class App extends React.Component {
                     if (item.charAt(1) === '*') {
                         if (item.charAt(2) === '*') {
                             decodedCode += 'D';
-                        } else {
+                        } else if (item.charAt(2) === '-') {
                             decodedCode += 'K';
                         }
                     } else {
                         if (item.charAt(2) === '*') {
                             decodedCode += 'G';
-                        } else {
+                        } else if (item.charAt(2) === '-') {
                             decodedCode += 'O';
                         }
                     }
@@ -93,13 +116,13 @@ class App extends React.Component {
                         if (item.charAt(2) === '*') {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'H';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'V';
                             }
                         } else {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'F';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'Ü';
                             }
                         }
@@ -107,13 +130,13 @@ class App extends React.Component {
                         if (item.charAt(2) === '*') {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'L';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'Ä';
                             }
                         } else {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'P';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'J';
                             }
                         }
@@ -123,13 +146,13 @@ class App extends React.Component {
                         if (item.charAt(2) === '*') {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'B';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'X';
                             }
                         } else {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'C';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'Y';
                             }
                         }
@@ -137,13 +160,13 @@ class App extends React.Component {
                         if (item.charAt(2) === '*') {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'Z';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'Q';
                             }
                         } else {
                             if (item.charAt(3) === '*') {
                                 decodedCode += 'Ö';
-                            } else {
+                            } else if (item.charAt(3) === '-') {
                                 decodedCode += 'Š';
                             }
                         }
